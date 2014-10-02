@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using TangramCMS.Infrastructure;
 using TangramCMS.Providers;
 using TangramCMS.Models;
 
@@ -23,7 +23,7 @@ namespace TangramCMS
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext(ApplicationIdentityContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
@@ -63,6 +63,7 @@ namespace TangramCMS
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+            app.Use(typeof (AuthorizationMiddleware));
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using System.Security.Claims;
+﻿using AspNet.Identity.MongoDB;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace TangramCMS.Models
@@ -18,6 +18,7 @@ namespace TangramCMS.Models
         }
     }
 
+    /*
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -30,4 +31,5 @@ namespace TangramCMS.Models
             return new ApplicationDbContext();
         }
     }
+    */
 }

@@ -1,0 +1,19 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TangramCMS.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CmsDbConnectionString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mongodb://localhost</Value>
+    </Setting>
+    <Setting Name="CmsDatabase" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">cms</Value>
+    </Setting>
+    <Setting Name="LanguageList" Type="System.Collections.Specialized.StringCollection" Scope="Application">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;en-US&lt;/string&gt;
+  &lt;string&gt;zh-TW&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

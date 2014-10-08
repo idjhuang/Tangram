@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AclDeleted" xml:space="preserve">
+    <value>ACL record deleted.</value>
+  </data>
+  <data name="AclExist" xml:space="preserve">
+    <value>ACL record already exist.</value>
+  </data>
+  <data name="AclNotExist" xml:space="preserve">
+    <value>ACL record not exist.</value>
+  </data>
+  <data name="AclSaved" xml:space="preserve">
+    <value>ACL record saved.</value>
+  </data>
+  <data name="AnonymousName" xml:space="preserve">
+    <value>Anonymous({0})</value>
+  </data>
+  <data name="CollectionAlreadyExist" xml:space="preserve">
+    <value>Collection {0} already exist.</value>
+  </data>
+  <data name="CollectionCreated" xml:space="preserve">
+    <value>Collection {0} created.</value>
+  </data>
+  <data name="CollectionDeleted" xml:space="preserve">
+    <value>Collection {0} deleted.</value>
+  </data>
   <data name="CollectionNotExist" xml:space="preserve">
     <value>Collection {0} not exist.</value>
   </data>
@@ -135,7 +159,55 @@
   <data name="DocumentSaved" xml:space="preserve">
     <value>Document saved.</value>
   </data>
+  <data name="DocumentTypeNotExist" xml:space="preserve">
+    <value>Document Type {0} not exist.</value>
+  </data>
+  <data name="InitializeSucceeded" xml:space="preserve">
+    <value>Initialize scucceeded.</value>
+  </data>
+  <data name="InvalidAdministratorsRecovery" xml:space="preserve">
+    <value>Recover Administrators could only applied when no users are Administrators.</value>
+  </data>
+  <data name="InvalidInitialization" xml:space="preserve">
+    <value>Initialize could only applied to database without users and roles.</value>
+  </data>
+  <data name="NoAuthorization" xml:space="preserve">
+    <value>Authorization has been denied for this request.</value>
+  </data>
   <data name="ParentNotExist" xml:space="preserve">
     <value>Parent not exist.</value>
+  </data>
+  <data name="RecoverAdministratorsSucceeded" xml:space="preserve">
+    <value>Recover Administrators succeeded.</value>
+  </data>
+  <data name="RoleAdded" xml:space="preserve">
+    <value>User {0} add role {1} succeeded.</value>
+  </data>
+  <data name="RoleAlreadyAdded" xml:space="preserve">
+    <value>Role {0} already added to user {1}.</value>
+  </data>
+  <data name="RoleAlreadyExist" xml:space="preserve">
+    <value>Role {0} already exist.</value>
+  </data>
+  <data name="RoleCreated" xml:space="preserve">
+    <value>Role {0} created.</value>
+  </data>
+  <data name="RoleDeleted" xml:space="preserve">
+    <value>Role {0} deleted.</value>
+  </data>
+  <data name="RoleNotExist" xml:space="preserve">
+    <value>Role {0} not exist.</value>
+  </data>
+  <data name="UserCreated" xml:space="preserve">
+    <value>User {0} created.</value>
+  </data>
+  <data name="UserNotExist" xml:space="preserve">
+    <value>User {0} not exist.</value>
+  </data>
+  <data name="UserRestored" xml:space="preserve">
+    <value>User {0} restored.</value>
+  </data>
+  <data name="UserSuspended" xml:space="preserve">
+    <value>User {0} suspended.</value>
   </data>
 </root>

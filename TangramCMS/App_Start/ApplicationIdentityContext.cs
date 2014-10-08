@@ -16,11 +16,12 @@ namespace TangramCMS
 
         public static ApplicationIdentityContext Create()
         {
-            // todo add settings where appropriate to switch server & database in your own application
-            var client = new MongoClient("mongodb://localhost");
-            var database = client.GetServer().GetDatabase("identity");
-            var users = database.GetCollection<IdentityUser>("users");
-            var roles = database.GetCollection<IdentityRole>("roles");
+            var connectionStr = Properties.Settings.Default.CmsDbConnectionString;
+            var databaseName = Properties.Settings.Default.CmsDatabase;
+            var client = new MongoClient(connectionStr);
+            var database = client.GetServer().GetDatabase(databaseName);
+            var users = database.GetCollection<IdentityUser>("cms_users");
+            var roles = database.GetCollection<IdentityRole>("cms_roles");
             return new ApplicationIdentityContext(users, roles);
         }
 

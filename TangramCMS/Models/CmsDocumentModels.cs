@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 
@@ -14,15 +10,19 @@ namespace TangramCMS.Models
         public string Message { get; set; }
     }
 
-    public class CmsDocument
+    public class CmsDocumentBase
     {
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         public string Id { get; set; }
-        public string ParentId { get; set; }
         public string CreatedDate { get; set; }
         public string LastModified { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
+    }
+
+    public class CmsDocument : CmsDocumentBase
+    {
+        public string ParentId { get; set; }
         [BsonExtraElements]
         public BsonDocument ExtraElements { get; set; }
     }
@@ -33,15 +33,9 @@ namespace TangramCMS.Models
         public string DocumentId { get; set; }
     }
 
-    public class CmsSelection
+    public class CmsCollection : CmsDocumentBase
     {
-        public string SelectionId { get; set; }
-        public List<CmsSelectionItem> SelectionItemList { get; set; } 
-    }
-
-    public class CmsSelectionItem
-    {
-        public string ItemName { get; set; }
-        public string ItemValue { get; set; }
+        public string CollectionId { get; set; }
+        public string DocumentType { get; set; }
     }
 }

@@ -61,6 +61,78 @@ namespace TangramCMS.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ACL record deleted..
+        /// </summary>
+        internal static string AclDeleted {
+            get {
+                return ResourceManager.GetString("AclDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ACL record already exist..
+        /// </summary>
+        internal static string AclExist {
+            get {
+                return ResourceManager.GetString("AclExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ACL record not exist..
+        /// </summary>
+        internal static string AclNotExist {
+            get {
+                return ResourceManager.GetString("AclNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ACL record saved..
+        /// </summary>
+        internal static string AclSaved {
+            get {
+                return ResourceManager.GetString("AclSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anonymous({0}).
+        /// </summary>
+        internal static string AnonymousName {
+            get {
+                return ResourceManager.GetString("AnonymousName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collection {0} already exist..
+        /// </summary>
+        internal static string CollectionAlreadyExist {
+            get {
+                return ResourceManager.GetString("CollectionAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collection {0} created..
+        /// </summary>
+        internal static string CollectionCreated {
+            get {
+                return ResourceManager.GetString("CollectionCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collection {0} deleted..
+        /// </summary>
+        internal static string CollectionDeleted {
+            get {
+                return ResourceManager.GetString("CollectionDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collection {0} not exist..
         /// </summary>
         internal static string CollectionNotExist {
@@ -115,11 +187,155 @@ namespace TangramCMS.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Document Type {0} not exist..
+        /// </summary>
+        internal static string DocumentTypeNotExist {
+            get {
+                return ResourceManager.GetString("DocumentTypeNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initialize scucceeded..
+        /// </summary>
+        internal static string InitializeSucceeded {
+            get {
+                return ResourceManager.GetString("InitializeSucceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recover Administrators could only applied when no users are Administrators..
+        /// </summary>
+        internal static string InvalidAdministratorsRecovery {
+            get {
+                return ResourceManager.GetString("InvalidAdministratorsRecovery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initialize could only applied to database without users and roles..
+        /// </summary>
+        internal static string InvalidInitialization {
+            get {
+                return ResourceManager.GetString("InvalidInitialization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization has been denied for this request..
+        /// </summary>
+        internal static string NoAuthorization {
+            get {
+                return ResourceManager.GetString("NoAuthorization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parent not exist..
         /// </summary>
         internal static string ParentNotExist {
             get {
                 return ResourceManager.GetString("ParentNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recover Administrators succeeded..
+        /// </summary>
+        internal static string RecoverAdministratorsSucceeded {
+            get {
+                return ResourceManager.GetString("RecoverAdministratorsSucceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User {0} add role {1} succeeded..
+        /// </summary>
+        internal static string RoleAdded {
+            get {
+                return ResourceManager.GetString("RoleAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role {0} already added to user {1}..
+        /// </summary>
+        internal static string RoleAlreadyAdded {
+            get {
+                return ResourceManager.GetString("RoleAlreadyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role {0} already exist..
+        /// </summary>
+        internal static string RoleAlreadyExist {
+            get {
+                return ResourceManager.GetString("RoleAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role {0} created..
+        /// </summary>
+        internal static string RoleCreated {
+            get {
+                return ResourceManager.GetString("RoleCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role {0} deleted..
+        /// </summary>
+        internal static string RoleDeleted {
+            get {
+                return ResourceManager.GetString("RoleDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role {0} not exist..
+        /// </summary>
+        internal static string RoleNotExist {
+            get {
+                return ResourceManager.GetString("RoleNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User {0} created..
+        /// </summary>
+        internal static string UserCreated {
+            get {
+                return ResourceManager.GetString("UserCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User {0} not exist..
+        /// </summary>
+        internal static string UserNotExist {
+            get {
+                return ResourceManager.GetString("UserNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User {0} restored..
+        /// </summary>
+        internal static string UserRestored {
+            get {
+                return ResourceManager.GetString("UserRestored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User {0} suspended..
+        /// </summary>
+        internal static string UserSuspended {
+            get {
+                return ResourceManager.GetString("UserSuspended", resourceCulture);
             }
         }
     }

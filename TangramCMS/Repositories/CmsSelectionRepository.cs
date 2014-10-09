@@ -18,6 +18,7 @@ namespace TangramCMS.Repositories
     {
         IEnumerable<string> ListSelections();
         JToken Get(string selectionId);
+        JToken GetItemList(string selectionId);
         JToken Create(JObject selection);
         JToken Update(JObject selection);
         JToken UpdateItemList(string selectionId, JToken itemList);
@@ -45,6 +46,15 @@ namespace TangramCMS.Repositories
             if (selection == null) return Result(string.Format(CmsResource.SelectionNotExist, selectionId));
             var jsonStr = selection.ToJson().ConvertObjectId().ConvertIsoDate();
             return JToken.Parse(jsonStr);
+        }
+
+        public JToken GetItemList(string selectionId)
+        {
+            // check existence of selection
+            var selection = _selectionCollection.FindOne(Query<CmsSelection>.EQ(s => s.SelectionId, selectionId));
+            if (selection == null) return Result(string.Format(CmsResource.SelectionNotExist, selectionId));
+            var jsonStr = selection.ItemList.ToJson().ConvertObjectId().ConvertIsoDate();
+            return JToken.Parse(jsonStr);            
         }
 
         public JToken Create(JObject selection)

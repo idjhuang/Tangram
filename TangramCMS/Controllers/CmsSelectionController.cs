@@ -8,7 +8,7 @@ using TangramCMS.Repositories;
 
 namespace TangramCMS.Controllers
 {
-    [Authorize(Roles = "Modelers")]
+    //[Authorize(Roles = "Modelers")]
     [RoutePrefix("CmsSelection")]
     public class CmsSelectionController : ApiController
     {
@@ -41,6 +41,21 @@ namespace TangramCMS.Controllers
             try
             {
                 return _cmsSelectionRepository.Get(selectionId);
+            }
+            catch (Exception e)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
+                    e.Message));
+            }
+        }
+
+        [Route("GetItems/{selectionId}")]
+        [HttpGet]
+        public JToken GetItems(string selectionId)
+        {
+            try
+            {
+                return _cmsSelectionRepository.GetItemList(selectionId);
             }
             catch (Exception e)
             {

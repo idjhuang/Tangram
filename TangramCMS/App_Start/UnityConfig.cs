@@ -20,6 +20,7 @@ namespace TangramCMS
             container.RegisterType<ICmsService, CmsService>(new HierarchicalLifetimeManager());
             container.RegisterType<ICmsDocumentRepository, CmsDocumentRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<ICmsCollectionRepository, CmsCollectionRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICmsSelectionRepository, CmsSelectionRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<ICmsAclRepository, CmsAclRepository>(new HierarchicalLifetimeManager());
             
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

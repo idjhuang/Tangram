@@ -5,24 +5,20 @@ namespace TangramCMS.Models
     public class CmsDocumentType : CmsDocumentBase
     {
         public string DocumentType { get; set; }
-        public List<CmsField> FiledList { get; set; }
+        public List<CmsProperty> PropertyList { get; set; }
+        public string LastBuild { get; set; }
     }
 
-    public class CmsField
+    public class CmsProperty
     {
-        public string FieldName { get; set; }
-        public string FiledType { get; set; }
+        public string PropertyName { get; set; }
+        public string DataType { get; set; }
+        public bool IsArray { get; set; }
     }
 
-    public class CmsSelection : CmsDocumentBase
+    public class CmsDocumentReference
     {
-        public string SelectionId { get; set; }
-        public List<CmsSelectionItem> SelectionItemList { get; set; }
-    }
-
-    public class CmsSelectionItem
-    {
-        public string ItemName { get; set; }
-        public string ItemValue { get; set; }
+        public string CollectionId { get; set; }
+        public string DocumentId { get; set; }
     }
 }

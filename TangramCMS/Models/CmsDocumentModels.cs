@@ -27,15 +27,10 @@ namespace TangramCMS.Models
         public BsonDocument ExtraElements { get; set; }
     }
 
-    public class CmsDocumentReference
-    {
-        public string CollectionId { get; set; }
-        public string DocumentId { get; set; }
-    }
-
     public class CmsCollection : CmsDocumentBase
     {
         public string CollectionId { get; set; }
         public string DocumentType { get; set; }
+        public bool IsTree { get; set; }
     }
 }

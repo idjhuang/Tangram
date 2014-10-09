@@ -198,6 +198,24 @@
   <data name="RoleNotExist" xml:space="preserve">
     <value>Role {0} not exist.</value>
   </data>
+  <data name="SelectionAlreadyExist" xml:space="preserve">
+    <value>Selection already exist.</value>
+  </data>
+  <data name="SelectionDeleted" xml:space="preserve">
+    <value>Selection {0} deleted.</value>
+  </data>
+  <data name="SelectionMissingId" xml:space="preserve">
+    <value>Selection is missing Id.</value>
+  </data>
+  <data name="SelectionMissingSelectionId" xml:space="preserve">
+    <value>Selection is missing SelectionId.</value>
+  </data>
+  <data name="SelectionNotExist" xml:space="preserve">
+    <value>Selection not exist.</value>
+  </data>
+  <data name="SelectionSaved" xml:space="preserve">
+    <value>Selection saved.</value>
+  </data>
   <data name="UserCreated" xml:space="preserve">
     <value>User {0} created.</value>
   </data>

@@ -142,6 +142,10 @@ namespace TangramCMS.Repositories
                 var origDocument = collection.FindOne(Query<CmsDocument>.EQ(d => d.Id, documentId));
                 if (origDocument == null) return Result(string.Format(CmsResource.DocumentNotExist, documentId));
             }
+            else
+            {
+                return Result(CmsResource.DocumentMissingId);
+            }
             // append cms properties
             document.Merge(JObject.FromObject(
                 new

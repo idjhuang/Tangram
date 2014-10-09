@@ -304,6 +304,60 @@ namespace TangramCMS.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selection already exist..
+        /// </summary>
+        internal static string SelectionAlreadyExist {
+            get {
+                return ResourceManager.GetString("SelectionAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection {0} deleted..
+        /// </summary>
+        internal static string SelectionDeleted {
+            get {
+                return ResourceManager.GetString("SelectionDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection is missing Id..
+        /// </summary>
+        internal static string SelectionMissingId {
+            get {
+                return ResourceManager.GetString("SelectionMissingId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection is missing SelectionId..
+        /// </summary>
+        internal static string SelectionMissingSelectionId {
+            get {
+                return ResourceManager.GetString("SelectionMissingSelectionId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection not exist..
+        /// </summary>
+        internal static string SelectionNotExist {
+            get {
+                return ResourceManager.GetString("SelectionNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection saved..
+        /// </summary>
+        internal static string SelectionSaved {
+            get {
+                return ResourceManager.GetString("SelectionSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User {0} created..
         /// </summary>
         internal static string UserCreated {

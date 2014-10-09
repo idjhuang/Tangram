@@ -251,6 +251,7 @@
     <Compile Include="Controllers\CmsAclController.cs" />
     <Compile Include="Controllers\CmsCollectionController.cs" />
     <Compile Include="Controllers\CmsDocumentController.cs" />
+    <Compile Include="Controllers\CmsSelectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -265,6 +266,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CmsAclModels.cs" />
     <Compile Include="Models\CmsSchemaModels.cs" />
+    <Compile Include="Models\CmsSelectionModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\CmsDocumentModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -277,6 +279,7 @@
     <Compile Include="Repositories\CmsAclRepository.cs" />
     <Compile Include="Repositories\CmsCollectionRepository.cs" />
     <Compile Include="Repositories\CmsDocumentRepository.cs" />
+    <Compile Include="Repositories\CmsSelectionRepository.cs" />
     <Compile Include="Repositories\CmsService.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />

@@ -6,9 +6,9 @@ using System.Net.Http.Formatting;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
-using TangramCMS.Infrastructure;
+using TangramService.Infrastructure;
 
-namespace TangramCMS
+namespace TangramService
 {
     public static class WebApiConfig
     {

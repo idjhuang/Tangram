@@ -1,9 +1,9 @@
 using Microsoft.Practices.Unity;
 using System.Web.Http;
-using TangramCMS.Repositories;
+using TangramService.Repositories;
 using Unity.WebApi;
 
-namespace TangramCMS
+namespace TangramService
 {
     public static class UnityConfig
     {
@@ -17,11 +17,12 @@ namespace TangramCMS
             // it is NOT necessary to register your controllers
             
             // e.g. container.RegisterType<ITestService, TestService>();
-            container.RegisterType<ICmsService, CmsService>(new HierarchicalLifetimeManager());
-            container.RegisterType<ICmsDocumentRepository, CmsDocumentRepository>(new HierarchicalLifetimeManager());
-            container.RegisterType<ICmsCollectionRepository, CmsCollectionRepository>(new HierarchicalLifetimeManager());
-            container.RegisterType<ICmsSelectionRepository, CmsSelectionRepository>(new HierarchicalLifetimeManager());
-            container.RegisterType<ICmsAclRepository, CmsAclRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IService, Service>(new HierarchicalLifetimeManager());
+            container.RegisterType<IDocumentRepository, DocumentRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICollectionRepository, CollectionRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<ISelectionRepository, SelectionRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IDocumentTypeRepository, DocumentTypeRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IAuthorizationRepository, AuthorizationRepository>(new HierarchicalLifetimeManager());
             
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

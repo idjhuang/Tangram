@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace TangramCMS.Areas.HelpPage
+namespace TangramService.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

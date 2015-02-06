@@ -3,18 +3,18 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
-using TangramCMS.Repositories;
+using TangramService.Repositories;
 
-namespace TangramCMS.Controllers
+namespace TangramService.Controllers
 {
     [RoutePrefix("CmsDocument")]
-    public class CmsDocumentController : ApiController
+    public class DocumentController : ApiController
     {
-        private readonly ICmsDocumentRepository _repository;
+        private readonly IDocumentRepository _documentRepository;
 
-        public CmsDocumentController(ICmsDocumentRepository repository)
+        public DocumentController(IDocumentRepository documentRepository)
         {
-            _repository = repository;
+            _documentRepository = documentRepository;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace TangramCMS.Controllers
         {
             try
             {
-                return _repository.GetAll(collectionId, limit, skip, random);
+                return _documentRepository.GetAll(collectionId, limit, skip, random);
             }
             catch (Exception e)
             {
@@ -46,7 +46,7 @@ namespace TangramCMS.Controllers
         {
             try
             {
-                return _repository.GetByQuery(collectionId, query, order, limit, skip, random);
+                return _documentRepository.GetByQuery(collectionId, query, order, limit, skip, random);
             }
             catch (Exception e)
             {
@@ -67,7 +67,7 @@ namespace TangramCMS.Controllers
         {
             try
             {
-                return _repository.GetById(collectionId, documentId);
+                return _documentRepository.GetById(collectionId, documentId);
             }
             catch (Exception e)
             {
@@ -88,7 +88,7 @@ namespace TangramCMS.Controllers
         {
             try
             {
-                return _repository.GetParent(collectionId, documentId);
+                return _documentRepository.GetParent(collectionId, documentId);
             }
             catch (Exception e)
             {
@@ -109,7 +109,7 @@ namespace TangramCMS.Controllers
         {
             try
             {
-                return _repository.GetChildren(collectionId, documentId);
+                return _documentRepository.GetChildren(collectionId, documentId);
             }
             catch (Exception e)
             {
@@ -130,7 +130,7 @@ namespace TangramCMS.Controllers
         {
             try
             {
-                return _repository.Create(collectionId, document);
+                return _documentRepository.Create(collectionId, document);
             }
             catch (Exception e)
             {
@@ -151,7 +151,7 @@ namespace TangramCMS.Controllers
         {
             try
             {
-                return _repository.Update(collectionId, document);
+                return _documentRepository.Update(collectionId, document);
             }
             catch (Exception e)
             {
@@ -172,7 +172,7 @@ namespace TangramCMS.Controllers
         {
             try
             {
-                return _repository.Delete(collectionId, documentId);
+                return _documentRepository.Delete(collectionId, documentId);
             }
             catch (Exception e)
             {
@@ -194,7 +194,7 @@ namespace TangramCMS.Controllers
         {
             try
             {
-                return _repository.SetParent(collectionId, documentId, parentId);
+                return _documentRepository.SetParent(collectionId, documentId, parentId);
             }
             catch (Exception e)
             {

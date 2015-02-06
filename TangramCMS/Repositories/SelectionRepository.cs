@@ -8,13 +8,13 @@ using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
 using Newtonsoft.Json.Linq;
-using TangramCMS.App_LocalResources;
-using TangramCMS.Infrastructure;
-using TangramCMS.Models;
+using TangramService.Infrastructure;
+using TangramService.App_LocalResources;
+using TangramService.Models;
 
-namespace TangramCMS.Repositories
+namespace TangramService.Repositories
 {
-    public interface ICmsSelectionRepository
+    public interface ISelectionRepository
     {
         IEnumerable<string> ListSelections();
         JToken Get(string selectionId);
@@ -25,24 +25,24 @@ namespace TangramCMS.Repositories
         JToken Delete(string selectionId);
     }
 
-    public class CmsSelectionRepository : ICmsSelectionRepository
+    public class SelectionRepository : ISelectionRepository
     {
-        private readonly MongoCollection<CmsSelection> _selectionCollection;
+        private readonly MongoCollection<Selection> _cmsSelections;
 
-        public CmsSelectionRepository(ICmsService service)
+        public SelectionRepository(IService service)
         {
-            _selectionCollection = service.Database.GetCollection<CmsSelection>("cms_selectons");
+            _cmsSelections = service.Database.GetCollection<Selection>("cms_selectons");
         }
 
         public IEnumerable<string> ListSelections()
         {
-            return _selectionCollection.AsQueryable().Select(s => s.SelectionId);
+            return _cmsSelections.AsQueryable().Select(s => s.SelectionId);
         }
 
         public JToken Get(string selectionId)
         {
             // check existence of selection
-            var selection = _selectionCollection.FindOne(Query<CmsSelection>.EQ(s => s.SelectionId, selectionId));
+            var selection = _cmsSelections.FindOne(Query<Selection>.EQ(s => s.SelectionId, selectionId));
             if (selection == null) return Result(string.Format(CmsResource.SelectionNotExist, selectionId));
             var jsonStr = selection.ToJson().ConvertObjectId().ConvertIsoDate();
             return JToken.Parse(jsonStr);
@@ -51,7 +51,7 @@ namespace TangramCMS.Repositories
         public JToken GetItemList(string selectionId)
         {
             // check existence of selection
-            var selection = _selectionCollection.FindOne(Query<CmsSelection>.EQ(s => s.SelectionId, selectionId));
+            var selection = _cmsSelections.FindOne(Query<Selection>.EQ(s => s.SelectionId, selectionId));
             if (selection == null) return Result(string.Format(CmsResource.SelectionNotExist, selectionId));
             var jsonStr = selection.ItemList.ToJson().ConvertObjectId().ConvertIsoDate();
             return JToken.Parse(jsonStr);            
@@ -63,7 +63,7 @@ namespace TangramCMS.Repositories
             var selectionIdProperty = selection["SelectionId"];
             if (selectionIdProperty == null) return Result(CmsResource.SelectionMissingSelectionId);
             var selectionId = selectionIdProperty.Value<string>();
-            if (_selectionCollection.Count(Query<CmsSelection>.EQ(s => s.SelectionId, selectionId)) != 0)
+            if (_cmsSelections.Count(Query<Selection>.EQ(s => s.SelectionId, selectionId)) != 0)
                 return Result(CmsResource.SelectionAlreadyExist);
 
             // append cms properties
@@ -78,7 +78,7 @@ namespace TangramCMS.Repositories
                     ModifiedBy = userName
                 }));
 
-            _selectionCollection.Insert(BsonSerializer.Deserialize<CmsSelection>(selection.ToString()));
+            _cmsSelections.Insert(BsonSerializer.Deserialize<Selection>(selection.ToString()));
             return Result(CmsResource.SelectionSaved, true);
         }
 
@@ -88,12 +88,12 @@ namespace TangramCMS.Repositories
             var idProperty = selection["_id"];
             if (idProperty == null) return Result(CmsResource.SelectionMissingId);
             var id = idProperty.Value<string>();
-            if (_selectionCollection.Count(Query<CmsSelection>.EQ(s => s.Id, id)) == 0)
+            if (_cmsSelections.Count(Query<Selection>.EQ(s => s.Id, id)) == 0)
                 return Result(CmsResource.SelectionNotExist);
             var selectionIdProperty = selection["SelectionId"];
             if (selectionIdProperty == null) return Result(CmsResource.SelectionMissingSelectionId);
             var selectionId = selectionIdProperty.Value<string>();
-            if (_selectionCollection.Count(Query<CmsSelection>.EQ(s => s.SelectionId, selectionId)) == 0)
+            if (_cmsSelections.Count(Query<Selection>.EQ(s => s.SelectionId, selectionId)) == 0)
                 return Result(CmsResource.SelectionNotExist);
 
             // append cms properties
@@ -106,14 +106,14 @@ namespace TangramCMS.Repositories
                     ModifiedBy = userName
                 }));
 
-            _selectionCollection.Save(BsonSerializer.Deserialize<CmsSelection>(selection.ToString()));
+            _cmsSelections.Save(BsonSerializer.Deserialize<Selection>(selection.ToString()));
             return Result(CmsResource.SelectionSaved, true);
         }
 
         public JToken UpdateItemList(string selectionId, JToken itemList)
         {
             // check existence of selection
-            var selection = _selectionCollection.FindOne(Query<CmsSelection>.EQ(s => s.SelectionId, selectionId));
+            var selection = _cmsSelections.FindOne(Query<Selection>.EQ(s => s.SelectionId, selectionId));
             if (selection == null) return Result(CmsResource.SelectionNotExist);
 
             // append cms properties
@@ -121,19 +121,19 @@ namespace TangramCMS.Repositories
             var now = string.Format("{0:yyyy/MM/dd hh:mm:ss}", DateTime.Now);
             selection.ModifiedBy = userName;
             selection.LastModified = now;
-            selection.ItemList = BsonSerializer.Deserialize<List<CmsSelectionItem>>(itemList.ToString());
+            selection.ItemList = BsonSerializer.Deserialize<List<SelectionItem>>(itemList.ToString());
 
-            _selectionCollection.Save(selection);
+            _cmsSelections.Save(selection);
             return Result(CmsResource.SelectionSaved, true);
         }
 
         public JToken Delete(string selectionId)
         {
             // check existence of selection
-            if (_selectionCollection.Count(Query<CmsSelection>.EQ(s => s.SelectionId, selectionId)) == 0)
+            if (_cmsSelections.Count(Query<Selection>.EQ(s => s.SelectionId, selectionId)) == 0)
                 return Result(string.Format(CmsResource.SelectionNotExist, selectionId));
 
-            _selectionCollection.Remove(Query<CmsSelection>.EQ(s => s.SelectionId, selectionId));
+            _cmsSelections.Remove(Query<Selection>.EQ(s => s.SelectionId, selectionId));
             return Result(string.Format(CmsResource.SelectionDeleted, selectionId), true);
         }
 
@@ -148,7 +148,7 @@ namespace TangramCMS.Repositories
 
         private JToken Result(string message, bool isSuccess = false)
         {
-            var result = new CmsResultModel
+            var result = new ResultModel
             {
                 IsSuccess = isSuccess,
                 Message = message

@@ -5,10 +5,10 @@ using System.Net.Http;
 using System.Text;
 using System.Web.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TangramCMS;
-using TangramCMS.Controllers;
+using TangramService;
+using TangramService.Controllers;
 
-namespace TangramCMS.Tests.Controllers
+namespace TangramService.Tests.Controllers
 {
     [TestClass]
     public class ValuesControllerTest

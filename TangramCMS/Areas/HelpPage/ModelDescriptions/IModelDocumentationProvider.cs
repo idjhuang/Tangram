@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace TangramCMS.Areas.HelpPage.ModelDescriptions
+namespace TangramService.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

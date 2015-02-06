@@ -1,6 +1,6 @@
-﻿namespace TangramCMS.Models
+﻿namespace TangramService.Models
 {
-    public class CmsAclModel : CmsDocumentBase
+    public class AuthorizationModel : DocumentBase
     {
         public string CollectionId { get; set; }
         public string RoleName { get; set; }

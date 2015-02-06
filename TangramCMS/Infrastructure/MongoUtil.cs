@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Wrappers;
 
-namespace TangramCMS.Infrastructure
+namespace TangramService.Infrastructure
 {
     public static class MongoUtil
     {

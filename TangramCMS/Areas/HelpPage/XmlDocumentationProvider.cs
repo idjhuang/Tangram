@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
-using TangramCMS.Areas.HelpPage.ModelDescriptions;
+using TangramService.Areas.HelpPage.ModelDescriptions;
 
-namespace TangramCMS.Areas.HelpPage
+namespace TangramService.Areas.HelpPage
 {
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.

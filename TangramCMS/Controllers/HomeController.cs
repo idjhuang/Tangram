@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace TangramCMS.Controllers
+namespace TangramService.Controllers
 {
     public class HomeController : Controller
     {

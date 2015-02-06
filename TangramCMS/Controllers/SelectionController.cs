@@ -1,36 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using TangramCMS.Infrastructure;
-using TangramCMS.Models;
-using TangramCMS.Repositories;
+using Newtonsoft.Json.Linq;
+using TangramService.Repositories;
 
-namespace TangramCMS.Controllers
+namespace TangramService.Controllers
 {
-    [Authorize(Roles = "Modelers")]
-    [RoutePrefix("CmsAcl")]
-    public class CmsAclController : ApiController
+    //[Authorize(Roles = "Modelers")]
+    [RoutePrefix("CmsSelection")]
+    public class SelectionController : ApiController
     {
-        private readonly ICmsAclRepository _repository;
+        private readonly ISelectionRepository _selectionRepository;
 
-        public CmsAclController(ICmsAclRepository repository)
+        public SelectionController(ISelectionRepository selectionRepository)
         {
-            _repository = repository;
+            _selectionRepository = selectionRepository;
         }
 
-        [Route("GetByCollection/{collectionId}")]
+        [Route("List")]
         [HttpGet]
-        public IEnumerable<CmsAclModel> GetByCollection(string collectionId)
+        public IEnumerable<string> List()
         {
             try
             {
-                return _repository.GetByCollection(collectionId);
+                return _selectionRepository.ListSelections();
             }
             catch (Exception e)
             {
@@ -39,13 +34,13 @@ namespace TangramCMS.Controllers
             }
         }
 
-        [Route("GetByRole/{roleName}")]
+        [Route("Get/{selectionId}")]
         [HttpGet]
-        public IEnumerable<CmsAclModel> GetByRole(string roleName)
+        public JToken Get(string selectionId)
         {
             try
             {
-                return _repository.GetByRole(roleName);
+                return _selectionRepository.Get(selectionId);
             }
             catch (Exception e)
             {
@@ -54,15 +49,13 @@ namespace TangramCMS.Controllers
             }
         }
 
-        [AllowAnonymous]
-        [Route("GetAvailableCmsCollections")]
+        [Route("GetItems/{selectionId}")]
         [HttpGet]
-        public IEnumerable<CmsCollection> GetAvailableCmsCollections()
+        public JToken GetItems(string selectionId)
         {
             try
             {
-                return
-                    _repository.GetAvailableCmsCollections(AuthorizationMiddleware.GetUserRoles(Request.GetOwinContext()));
+                return _selectionRepository.GetItemList(selectionId);
             }
             catch (Exception e)
             {
@@ -73,26 +66,26 @@ namespace TangramCMS.Controllers
 
         [Route("Create")]
         [HttpPost]
-        public CmsResultModel Create([FromBody] CmsAclModel acl)
+        public JToken Create([FromBody] JObject selection)
         {
             try
             {
-                return _repository.Create(acl);
+                return _selectionRepository.Create(selection);
             }
             catch (Exception e)
             {
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
                     e.Message));
-            }
+            }            
         }
 
         [Route("Update")]
         [HttpPut]
-        public CmsResultModel Update([FromBody] CmsAclModel acl)
+        public JToken Update([FromBody] JObject selection)
         {
             try
             {
-                return _repository.Update(acl);
+                return _selectionRepository.Update(selection);
             }
             catch (Exception e)
             {
@@ -101,13 +94,13 @@ namespace TangramCMS.Controllers
             }
         }
 
-        [Route("Delete/{collectionId}/{roleName}")]
-        [HttpDelete]
-        public CmsResultModel Delete(string collectionId, string roleName)
+        [Route("UpdateItems/{selectionId}")]
+        [HttpPut]
+        public JToken UpdateItems(string selectionId, [FromBody] JToken items)
         {
             try
             {
-                return _repository.Delete(collectionId, roleName);
+                return _selectionRepository.UpdateItemList(selectionId, items);
             }
             catch (Exception e)
             {
@@ -116,13 +109,13 @@ namespace TangramCMS.Controllers
             }
         }
 
-        [Route("DeleteByRole/{roleName}")]
+        [Route("Delete/{selectionId}")]
         [HttpDelete]
-        public CmsResultModel DeleteByRole(string roleName)
+        public JToken Delete(string selectionId)
         {
             try
             {
-                return _repository.DeleteByRole(roleName);
+                return _selectionRepository.Delete(selectionId);
             }
             catch (Exception e)
             {

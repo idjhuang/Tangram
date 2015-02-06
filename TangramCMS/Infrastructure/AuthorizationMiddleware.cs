@@ -5,10 +5,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Practices.Unity;
-using TangramCMS.App_LocalResources;
-using TangramCMS.Repositories;
+using TangramService.App_LocalResources;
+using TangramService.Repositories;
 
-namespace TangramCMS.Infrastructure
+namespace TangramService.Infrastructure
 {
     public class AuthorizationMiddleware : OwinMiddleware
     {
@@ -27,7 +27,7 @@ namespace TangramCMS.Infrastructure
                 if (ParsePath(context.Request.Path.ToString(), out action, out collectionId))
                 {
                     // check acl
-                    var repository = UnityConfig.Container.Resolve<ICmsAclRepository>();
+                    var repository = UnityConfig.Container.Resolve<IAuthorizationRepository>();
                     var right = context.Request.Method.Equals("GET") ? "r" : "w";
                     isAuthorized = repository.CheckRight(collectionId, roles, right);
                 }

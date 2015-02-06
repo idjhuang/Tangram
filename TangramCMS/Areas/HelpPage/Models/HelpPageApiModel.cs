@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using TangramCMS.Areas.HelpPage.ModelDescriptions;
+using TangramService.Areas.HelpPage.ModelDescriptions;
 
-namespace TangramCMS.Areas.HelpPage.Models
+namespace TangramService.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

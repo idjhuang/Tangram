@@ -5,7 +5,7 @@ using System.Web;
 using AspNet.Identity.MongoDB;
 using MongoDB.Driver;
 
-namespace TangramCMS
+namespace TangramService
 {
     public class ApplicationIdentityContext : IdentityContext, IDisposable
     {

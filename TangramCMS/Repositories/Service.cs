@@ -4,16 +4,16 @@ using System.Linq;
 using System.Web;
 using MongoDB.Driver;
 
-namespace TangramCMS.Repositories
+namespace TangramService.Repositories
 {
-    public interface ICmsService
+    public interface IService
     {
         MongoDatabase Database { get; }
     }
 
-    public class CmsService : ICmsService
+    public class Service : IService
     {
-        public CmsService()
+        public Service()
         {
             var connectionStr = Properties.Settings.Default.CmsDbConnectionString;
             var databaseName = Properties.Settings.Default.CmsDatabase;

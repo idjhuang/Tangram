@@ -159,8 +159,23 @@
   <data name="DocumentSaved" xml:space="preserve">
     <value>Document saved.</value>
   </data>
+  <data name="DocumentTypeAlreadyExist" xml:space="preserve">
+    <value>Document Type {0} already exist.</value>
+  </data>
+  <data name="DocumentTypeDeleted" xml:space="preserve">
+    <value>Document Type {0} deleted.</value>
+  </data>
+  <data name="DocumentTypeMissingId" xml:space="preserve">
+    <value>Document Type is missing Id.</value>
+  </data>
+  <data name="DocumentTypeMissingTypeName" xml:space="preserve">
+    <value>Document Type is missing type name.</value>
+  </data>
   <data name="DocumentTypeNotExist" xml:space="preserve">
     <value>Document Type {0} not exist.</value>
+  </data>
+  <data name="DocumentTypeSaved" xml:space="preserve">
+    <value>Document Type {0} saved.</value>
   </data>
   <data name="InitializeSucceeded" xml:space="preserve">
     <value>Initialize scucceeded.</value>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace TangramCMS.Infrastructure
+namespace TangramService.Infrastructure
 {
     public static class JsonUtil
     {

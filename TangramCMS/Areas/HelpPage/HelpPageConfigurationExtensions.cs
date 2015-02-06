@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using TangramCMS.Areas.HelpPage.ModelDescriptions;
-using TangramCMS.Areas.HelpPage.Models;
+using TangramService.Areas.HelpPage.ModelDescriptions;
+using TangramService.Areas.HelpPage.Models;
 
-namespace TangramCMS.Areas.HelpPage
+namespace TangramService.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

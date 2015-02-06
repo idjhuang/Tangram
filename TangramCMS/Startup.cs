@@ -4,9 +4,9 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(TangramCMS.Startup))]
+[assembly: OwinStartup(typeof(TangramService.Startup))]
 
-namespace TangramCMS
+namespace TangramService
 {
     public partial class Startup
     {

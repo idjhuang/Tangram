@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace TangramCMS.Controllers
+namespace TangramService.Controllers
 {
     [Authorize]
     public class ValuesController : ApiController

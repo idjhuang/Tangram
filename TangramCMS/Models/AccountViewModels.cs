@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TangramCMS.Models
+namespace TangramService.Models
 {
     // Models returned by AccountController actions.
 

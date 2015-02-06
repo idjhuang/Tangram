@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace TangramCMS.Areas.HelpPage.ModelDescriptions
+namespace TangramService.Areas.HelpPage.ModelDescriptions
 {
     public class ComplexTypeModelDescription : ModelDescription
     {

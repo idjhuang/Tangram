@@ -106,9 +106,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TangramCMS\TangramCMS.csproj">
+    <ProjectReference Include="..\TangramCMS\TangramService.csproj">
       <Project>{0F3F8C67-4951-47A6-9584-9137C3C9F5F5}</Project>
-      <Name>TangramCMS</Name>
+      <Name>TangramService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

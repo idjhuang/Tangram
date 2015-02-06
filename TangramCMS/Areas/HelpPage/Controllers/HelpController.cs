@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using TangramCMS.Areas.HelpPage.ModelDescriptions;
-using TangramCMS.Areas.HelpPage.Models;
+using TangramService.Areas.HelpPage.ModelDescriptions;
+using TangramService.Areas.HelpPage.Models;
 
-namespace TangramCMS.Areas.HelpPage.Controllers
+namespace TangramService.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

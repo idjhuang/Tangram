@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TangramCMS.App_LocalResources {
+namespace TangramService.App_LocalResources {
     using System;
     
     
@@ -187,11 +187,56 @@ namespace TangramCMS.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Document Type {0} already exist..
+        /// </summary>
+        internal static string DocumentTypeAlreadyExist {
+            get {
+                return ResourceManager.GetString("DocumentTypeAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document Type {0} deleted..
+        /// </summary>
+        internal static string DocumentTypeDeleted {
+            get {
+                return ResourceManager.GetString("DocumentTypeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document Type is missing Id..
+        /// </summary>
+        internal static string DocumentTypeMissingId {
+            get {
+                return ResourceManager.GetString("DocumentTypeMissingId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document Type is missing type name..
+        /// </summary>
+        internal static string DocumentTypeMissingTypeName {
+            get {
+                return ResourceManager.GetString("DocumentTypeMissingTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Document Type {0} not exist..
         /// </summary>
         internal static string DocumentTypeNotExist {
             get {
                 return ResourceManager.GetString("DocumentTypeNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document Type {0} saved..
+        /// </summary>
+        internal static string DocumentTypeSaved {
+            get {
+                return ResourceManager.GetString("DocumentTypeSaved", resourceCulture);
             }
         }
         

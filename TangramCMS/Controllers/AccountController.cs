@@ -12,11 +12,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using TangramCMS.Models;
-using TangramCMS.Providers;
-using TangramCMS.Results;
+using TangramService.Models;
+using TangramService.Providers;
+using TangramService.Results;
 
-namespace TangramCMS.Controllers
+namespace TangramService.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]

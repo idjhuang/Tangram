@@ -8,13 +8,13 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using Newtonsoft.Json.Linq;
-using TangramCMS.App_LocalResources;
-using TangramCMS.Infrastructure;
-using TangramCMS.Models;
+using TangramService.Infrastructure;
+using TangramService.App_LocalResources;
+using TangramService.Models;
 
-namespace TangramCMS.Repositories
+namespace TangramService.Repositories
 {
-    public interface ICmsDocumentRepository
+    public interface IDocumentRepository
     {
         JToken GetAll(string collectionId, int limit = 0, int skip = 0, bool randomOrder = false);
         JToken GetByQuery(string collectionId, string queryStr, string orderStr, int limit = 0,
@@ -28,11 +28,11 @@ namespace TangramCMS.Repositories
         JToken SetParent(string collectionId, string documentId, string parentId);
     }
 
-    public class CmsDocumentRepository : ICmsDocumentRepository
+    public class DocumentRepository : IDocumentRepository
     {
         private MongoDatabase _database;
 
-        public CmsDocumentRepository(ICmsService service)
+        public DocumentRepository(IService service)
         {
             _database = service.Database;
             //var convensionPak = new ConventionPack();
@@ -41,7 +41,7 @@ namespace TangramCMS.Repositories
         }
         public JToken GetAll(string collectionId, int limit = 0, int skip = 0, bool randomOrder = false)
         {
-            var collection = _database.GetCollection<CmsDocument>(collectionId);
+            var collection = _database.GetCollection<Document>(collectionId);
             if (collection == null) return Result(string.Format(CmsResource.CollectionNotExist, collectionId));
             var cursor = collection.FindAll();
             if (limit == 0) limit = (int)cursor.Count();
@@ -55,9 +55,9 @@ namespace TangramCMS.Repositories
         public JToken GetByQuery(string collectionId, string queryStr, string orderStr, int limit = 0,
             int skip = 0, bool randomOrder = false)
         {
-            var collection = _database.GetCollection<CmsDocument>(collectionId);
+            var collection = _database.GetCollection<Document>(collectionId);
             if (collection == null) return Result(string.Format(CmsResource.CollectionNotExist, collectionId));
-            var list = collection.Query<CmsDocument>(queryStr, orderStr);
+            var list = collection.Query<Document>(queryStr, orderStr);
             if (limit == 0) limit = list.Count();
             var rng = new Random((int)DateTime.Now.Ticks);
             var jsonStr = randomOrder
@@ -68,9 +68,9 @@ namespace TangramCMS.Repositories
 
         public JToken GetById(string collectionId, string documentId)
         {
-            var collection = _database.GetCollection<CmsDocument>(collectionId);
+            var collection = _database.GetCollection<Document>(collectionId);
             if (collection == null) return Result(string.Format(CmsResource.CollectionNotExist, collectionId));
-            var document = collection.FindOne(Query<CmsDocument>.EQ(d => d.Id, documentId));
+            var document = collection.FindOne(Query<Document>.EQ(d => d.Id, documentId));
             if (document == null) return Result(string.Format(CmsResource.DocumentNotExist, documentId));
             var jsonStr = document.ToJson().ConvertObjectId().ConvertIsoDate();
             return JToken.Parse(jsonStr);
@@ -78,29 +78,29 @@ namespace TangramCMS.Repositories
 
         public JToken GetParent(string collectionId, string documentId)
         {
-            var collection = _database.GetCollection<CmsDocument>(collectionId);
+            var collection = _database.GetCollection<Document>(collectionId);
             if (collection == null) return Result(string.Format(CmsResource.CollectionNotExist, collectionId));
-            var document = collection.FindOne(Query<CmsDocument>.EQ(d => d.Id, documentId));
+            var document = collection.FindOne(Query<Document>.EQ(d => d.Id, documentId));
             if (document == null) return Result(string.Format(CmsResource.DocumentNotExist, documentId));
-            var parent = collection.FindOne(Query<CmsDocument>.EQ(d => d.Id, document.ParentId));
+            var parent = collection.FindOne(Query<Document>.EQ(d => d.Id, document.ParentId));
             var jsonStr = (parent == null) ? "{}" : parent.ToJson().ConvertObjectId().ConvertIsoDate();
             return JToken.Parse(jsonStr);
         }
 
         public JToken GetChildren(string collectionId, string documentId)
         {
-            var collection = _database.GetCollection<CmsDocument>(collectionId);
+            var collection = _database.GetCollection<Document>(collectionId);
             if (collection == null) return Result(string.Format(CmsResource.CollectionNotExist, collectionId));
-            var document = collection.FindOne(Query<CmsDocument>.EQ(d => d.Id, documentId));
+            var document = collection.FindOne(Query<Document>.EQ(d => d.Id, documentId));
             if (document == null) return Result(string.Format(CmsResource.DocumentNotExist, documentId));
-            var children = collection.Find(Query<CmsDocument>.EQ(d => d.ParentId, document.Id));
+            var children = collection.Find(Query<Document>.EQ(d => d.ParentId, document.Id));
             var jsonStr = children.ToJson().ConvertObjectId().ConvertIsoDate();
             return JToken.Parse(jsonStr);
         }
 
         public JToken Create(string collectionId, JObject document)
         {
-            var collection = _database.GetCollection<CmsDocument>(collectionId);
+            var collection = _database.GetCollection<Document>(collectionId);
             if (collection == null) return Result(string.Format(CmsResource.CollectionNotExist, collectionId));
             // check existence of document
             var idProperty = document["_id"];
@@ -109,7 +109,7 @@ namespace TangramCMS.Repositories
                 var documentId = idProperty.Value<string>();
                 if (!string.IsNullOrWhiteSpace(documentId))
                 {
-                    var origDocument = collection.FindOne(Query<CmsDocument>.EQ(d => d.Id, documentId));
+                    var origDocument = collection.FindOne(Query<Document>.EQ(d => d.Id, documentId));
                     if (origDocument != null) return Result(string.Format(CmsResource.DocumentAlreadyExist, documentId));
                 }
             }
@@ -125,13 +125,13 @@ namespace TangramCMS.Repositories
                     ModifiedBy = userName
                 }));
 
-            collection.Insert(BsonSerializer.Deserialize<CmsDocument>(document.ToString()));
+            collection.Insert(BsonSerializer.Deserialize<Document>(document.ToString()));
             return Result(CmsResource.DocumentSaved, true);
         }
 
         public JToken Update(string collectionId, JObject document)
         {
-            var collection = _database.GetCollection<CmsDocument>(collectionId);
+            var collection = _database.GetCollection<Document>(collectionId);
             if (collection == null) return Result(string.Format(CmsResource.CollectionNotExist, collectionId));
             // check existence of document
             var idProperty = document["_id"];
@@ -139,7 +139,7 @@ namespace TangramCMS.Repositories
             {
                 var documentId = idProperty.Value<string>();
                 if (string.IsNullOrWhiteSpace(documentId)) return Result(CmsResource.DocumentMissingId);
-                var origDocument = collection.FindOne(Query<CmsDocument>.EQ(d => d.Id, documentId));
+                var origDocument = collection.FindOne(Query<Document>.EQ(d => d.Id, documentId));
                 if (origDocument == null) return Result(string.Format(CmsResource.DocumentNotExist, documentId));
             }
             else
@@ -154,39 +154,39 @@ namespace TangramCMS.Repositories
                     ModifiedBy = GetUserName()
                 }));
 
-            collection.Save(BsonSerializer.Deserialize<CmsDocument>(document.ToString()));
+            collection.Save(BsonSerializer.Deserialize<Document>(document.ToString()));
             return Result(CmsResource.DocumentSaved, true);
         }
 
         public JToken Delete(string collectionId, string documentId)
         {
-            var collection = _database.GetCollection<CmsDocument>(collectionId);
+            var collection = _database.GetCollection<Document>(collectionId);
             if (collection == null) return Result(string.Format(CmsResource.CollectionNotExist, collectionId));
             // check existence of document
-            var origDocument = collection.FindOne(Query<CmsDocument>.EQ(d => d.Id, documentId));
+            var origDocument = collection.FindOne(Query<Document>.EQ(d => d.Id, documentId));
             if (origDocument == null) return Result(string.Format(CmsResource.DocumentNotExist, documentId));
-            collection.Remove(Query<CmsDocument>.EQ(d => d.Id, documentId));
+            collection.Remove(Query<Document>.EQ(d => d.Id, documentId));
             return Result(CmsResource.DocumentDeleted, true);
         }
 
         public JToken SetParent(string collectionId, string documentId, string parentId)
         {
-            var collection = _database.GetCollection<CmsDocument>(collectionId);
+            var collection = _database.GetCollection<Document>(collectionId);
             if (collection == null) return Result(string.Format(CmsResource.CollectionNotExist, collectionId));
             // check existence of document
-            var query = Query<CmsDocument>.EQ(d => d.Id, documentId);
+            var query = Query<Document>.EQ(d => d.Id, documentId);
             var origDocument = collection.FindOne(query);
             if (origDocument == null) return Result(string.Format(CmsResource.DocumentNotExist, documentId));
 
             // check existence of parent document
             if (!parentId.IsNullOrWhiteSpace())
             {
-                var parentDocument = collection.FindOne(Query<CmsDocument>.EQ(d => d.Id, parentId));
+                var parentDocument = collection.FindOne(Query<Document>.EQ(d => d.Id, parentId));
                 if (parentDocument == null) return Result(CmsResource.ParentNotExist);
             }
             // update document
             var update =
-                Update<CmsDocument>.Set(d => d.ParentId, parentId)
+                Update<Document>.Set(d => d.ParentId, parentId)
                     .Set(d => d.LastModified, string.Format("{0:yyyy/MM/dd hh:mm:ss}", DateTime.Now))
                     .Set(d => d.ModifiedBy, GetUserName());
             collection.Update(query, update);
@@ -204,7 +204,7 @@ namespace TangramCMS.Repositories
 
         private JToken Result(string message, bool isSuccess = false)
         {
-            var result = new CmsResultModel
+            var result = new ResultModel
             {
                 IsSuccess = isSuccess,
                 Message = message

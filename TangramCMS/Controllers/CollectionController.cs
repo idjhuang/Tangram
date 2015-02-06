@@ -4,30 +4,30 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Practices.Unity;
-using TangramCMS.Infrastructure;
-using TangramCMS.Models;
-using TangramCMS.Repositories;
+using TangramService.Infrastructure;
+using TangramService.Models;
+using TangramService.Repositories;
 
-namespace TangramCMS.Controllers
+namespace TangramService.Controllers
 {
     [Authorize(Roles = "Modelers")]
     [RoutePrefix("CmsCollection")]
-    public class CmsCollectionController : ApiController
+    public class CollectionController : ApiController
     {
-        private readonly ICmsCollectionRepository _cmsCollectionRepository;
+        private readonly ICollectionRepository _collectionRepository;
 
-        public CmsCollectionController(ICmsCollectionRepository cmsCollectionRepository)
+        public CollectionController(ICollectionRepository collectionRepository)
         {
-            _cmsCollectionRepository = cmsCollectionRepository;
+            _collectionRepository = collectionRepository;
         }
 
         [Route("GetAll/{documentType?}")]
         [HttpGet]
-        public IEnumerable<CmsCollection> GetAll(string documentType = null)
+        public IEnumerable<Collection> GetAll(string documentType = null)
         {
             try
             {
-                return _cmsCollectionRepository.GatAll(documentType);
+                return _collectionRepository.GatAll(documentType);
             }
             catch (Exception e)
             {
@@ -37,15 +37,15 @@ namespace TangramCMS.Controllers
         }
 
         [AllowAnonymous]
-        [Route("GetAvailable")]
+        [Route("GetAvailable/{right?}")]
         [HttpGet]
-        public IEnumerable<CmsCollection> GetAvailable()
+        public IEnumerable<Collection> GetAvailable(string right = "w")
         {
             try
             {
-                var aclRepository = UnityConfig.Container.Resolve<ICmsAclRepository>();
+                var aclRepository = UnityConfig.Container.Resolve<IAuthorizationRepository>();
                 return
-                    aclRepository.GetAvailableCmsCollections(AuthorizationMiddleware.GetUserRoles(Request.GetOwinContext()));
+                    aclRepository.GetAvailableCmsCollections(AuthorizationMiddleware.GetUserRoles(Request.GetOwinContext()), right);
             }
             catch (Exception e)
             {
@@ -56,11 +56,11 @@ namespace TangramCMS.Controllers
 
         [Route("Get/{collectionId}")]
         [HttpGet]
-        public CmsCollection Get(string collectionId)
+        public Collection Get(string collectionId)
         {
             try
             {
-                return _cmsCollectionRepository.Get(collectionId);
+                return _collectionRepository.Get(collectionId);
             }
             catch (Exception e)
             {
@@ -71,11 +71,11 @@ namespace TangramCMS.Controllers
 
         [Route("Create")]
         [HttpPost]
-        public CmsResultModel Create([FromBody] CmsCollection cmsCollection)
+        public ResultModel Create([FromBody] Collection collection)
         {
             try
             {
-                return _cmsCollectionRepository.Create(cmsCollection);
+                return _collectionRepository.Create(collection);
             }
             catch (Exception e)
             {
@@ -86,11 +86,11 @@ namespace TangramCMS.Controllers
 
         [Route("Delete/{collectionId}")]
         [HttpDelete]
-        public CmsResultModel Delete(string collectionId)
+        public ResultModel Delete(string collectionId)
         {
             try
             {
-                return _cmsCollectionRepository.Delete(collectionId);
+                return _collectionRepository.Delete(collectionId);
             }
             catch (Exception e)
             {

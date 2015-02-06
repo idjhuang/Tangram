@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tangram", "Tangram\Tangram.csproj", "{8B150B74-3FC4-400C-86FE-5A14BE4AF1B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TangramCMS", "TangramCMS\TangramCMS.csproj", "{0F3F8C67-4951-47A6-9584-9137C3C9F5F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TangramService", "TangramCMS\TangramService.csproj", "{0F3F8C67-4951-47A6-9584-9137C3C9F5F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TangramCMS.Tests", "TangramCMS.Tests\TangramCMS.Tests.csproj", "{D551C1AF-E1B2-45F8-9786-5A4237F4A1F6}"
 EndProject

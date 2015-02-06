@@ -1,6 +1,6 @@
 using System;
 
-namespace TangramCMS.Areas.HelpPage.ModelDescriptions
+namespace TangramService.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

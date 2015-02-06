@@ -10,11 +10,11 @@ using System.Web.Http.ModelBinding;
 using AspNet.Identity.MongoDB;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using TangramCMS.App_LocalResources;
-using TangramCMS.Models;
-using TangramCMS.Repositories;
+using TangramService.App_LocalResources;
+using TangramService.Models;
+using TangramService.Repositories;
 
-namespace TangramCMS.Controllers
+namespace TangramService.Controllers
 {
     [Authorize(Roles = "Administrators")]
     [RoutePrefix("UserAdmin")]
@@ -22,11 +22,11 @@ namespace TangramCMS.Controllers
     {
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationRoleManager _roleManager;
-        private readonly ICmsAclRepository _aclRepository;
+        private readonly IAuthorizationRepository _authorizationRepository;
 
-        public UserAdminController(ICmsAclRepository aclRepository)
+        public UserAdminController(IAuthorizationRepository authorizationRepository)
         {
-            _aclRepository = aclRepository;
+            _authorizationRepository = authorizationRepository;
             _userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             _roleManager = Request.GetOwinContext().Get<ApplicationRoleManager>();
         }
@@ -78,7 +78,7 @@ namespace TangramCMS.Controllers
 
         [Route("CreateUser")]
         [HttpPost]
-        public async Task<CmsResultModel> CreateUser(RegisterBindingModel model)
+        public async Task<ResultModel> CreateUser(RegisterBindingModel model)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace TangramCMS.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (!result.Succeeded) return IdentityResultErrors(result);
-                return new CmsResultModel
+                return new ResultModel
                 {
                     IsSuccess = true,
                     Message = string.Format(CmsResource.UserCreated, model.UserName)
@@ -103,14 +103,14 @@ namespace TangramCMS.Controllers
 
         [Route("SuspendUser/{userName}")]
         [HttpPut]
-        public async Task<CmsResultModel> SuspendUser(string userName)
+        public async Task<ResultModel> SuspendUser(string userName)
         {
             try
             {
                 // check existence of user
                 var user = await _userManager.FindByNameAsync(userName);
                 if (user == null)
-                    return new CmsResultModel
+                    return new ResultModel
                     {
                         IsSuccess = false,
                         Message = string.Format(CmsResource.UserNotExist, userName)
@@ -120,7 +120,7 @@ namespace TangramCMS.Controllers
                 var result = await _userManager.UpdateAsync(user);
 
                 if (!result.Succeeded) return IdentityResultErrors(result);
-                return new CmsResultModel
+                return new ResultModel
                 {
                     IsSuccess = true,
                     Message = string.Format(CmsResource.UserSuspended, userName)
@@ -135,14 +135,14 @@ namespace TangramCMS.Controllers
 
         [Route("RestoreUser/{userName}")]
         [HttpPut]
-        public async Task<CmsResultModel> RestoreUser(string userName)
+        public async Task<ResultModel> RestoreUser(string userName)
         {
             try
             {
                 // check existence of user
                 var user = await _userManager.FindByNameAsync(userName);
                 if (user == null)
-                    return new CmsResultModel
+                    return new ResultModel
                     {
                         IsSuccess = false,
                         Message = string.Format(CmsResource.UserNotExist, userName)
@@ -152,7 +152,7 @@ namespace TangramCMS.Controllers
                 var result = await _userManager.UpdateAsync(user);
 
                 if (!result.Succeeded) return IdentityResultErrors(result);
-                return new CmsResultModel
+                return new ResultModel
                 {
                     IsSuccess = true,
                     Message = string.Format(CmsResource.UserRestored, userName)
@@ -167,14 +167,14 @@ namespace TangramCMS.Controllers
 
         [Route("CreateRole/{roleName}")]
         [HttpPost]
-        public async Task<CmsResultModel> CreateRole(string roleName)
+        public async Task<ResultModel> CreateRole(string roleName)
         {
             try
             {
                 // check existence of role
                 var role = await _roleManager.FindByNameAsync(roleName);
                 if (role != null)
-                    return new CmsResultModel
+                    return new ResultModel
                     {
                         IsSuccess = false,
                         Message = string.Format(CmsResource.RoleAlreadyExist, roleName)
@@ -183,7 +183,7 @@ namespace TangramCMS.Controllers
                 var result = await _roleManager.CreateAsync(new IdentityRole(roleName));
 
                 if (!result.Succeeded) return IdentityResultErrors(result);
-                return new CmsResultModel
+                return new ResultModel
                 {
                     IsSuccess = true,
                     Message = string.Format(CmsResource.RoleCreated, roleName)
@@ -198,20 +198,20 @@ namespace TangramCMS.Controllers
 
         [Route("DeleteRole/{roleName}")]
         [HttpDelete]
-        public async Task<CmsResultModel> DeleteRole(string roleName)
+        public async Task<ResultModel> DeleteRole(string roleName)
         {
             try
             {
                 // check existence of role
                 var role = await _roleManager.FindByNameAsync(roleName);
                 if (role == null)
-                    return new CmsResultModel
+                    return new ResultModel
                     {
                         IsSuccess = false,
                         Message = string.Format(CmsResource.RoleNotExist, roleName)
                     };
                 // delete acls of deleted role
-                var aclResult = _aclRepository.DeleteByRole(roleName);
+                var aclResult = _authorizationRepository.DeleteByRole(roleName);
                 if (!aclResult.IsSuccess) return aclResult;
                 // remove role from all users with it
                 var users = _userManager.Users.Where(u => u.Roles.Contains(roleName));
@@ -225,7 +225,7 @@ namespace TangramCMS.Controllers
                 var result = await _roleManager.DeleteAsync(role);
 
                 if (!result.Succeeded) return IdentityResultErrors(result);
-                return new CmsResultModel
+                return new ResultModel
                 {
                     IsSuccess = true,
                     Message = string.Format(CmsResource.RoleDeleted, roleName)
@@ -240,21 +240,21 @@ namespace TangramCMS.Controllers
 
         [Route("AddRole/{userName}/{roleName}")]
         [HttpPut]
-        public async Task<CmsResultModel> AddRole(string userName, string roleName)
+        public async Task<ResultModel> AddRole(string userName, string roleName)
         {
             try
             {
                 // check existence of user
                 var user = await _userManager.FindByNameAsync(userName);
                 if (user == null)
-                    return new CmsResultModel
+                    return new ResultModel
                     {
                         IsSuccess = false,
                         Message = string.Format(CmsResource.UserNotExist, userName)
                     };
                 // check role already added to user
                 if (user.Roles.Contains(roleName))
-                    return new CmsResultModel
+                    return new ResultModel
                     {
                         IsSuccess = false,
                         Message = string.Format(CmsResource.RoleAlreadyAdded, roleName, userName)
@@ -262,7 +262,7 @@ namespace TangramCMS.Controllers
                 // check existence of role
                 var role = await _roleManager.FindByNameAsync(roleName);
                 if (role == null)
-                    return new CmsResultModel
+                    return new ResultModel
                     {
                         IsSuccess = false,
                         Message = string.Format(CmsResource.RoleNotExist, roleName)
@@ -272,7 +272,7 @@ namespace TangramCMS.Controllers
                 var result = await _userManager.UpdateAsync(user);
 
                 if (!result.Succeeded) return IdentityResultErrors(result);
-                return new CmsResultModel
+                return new ResultModel
                 {
                     IsSuccess = true,
                     Message = string.Format(CmsResource.RoleAdded, userName, roleName)
@@ -287,14 +287,14 @@ namespace TangramCMS.Controllers
 
         [Route("AddRole/{roleName}")]
         [HttpPut]
-        public async Task<CmsResultModel> AddRole([FromBody]List<string> userNameList, string roleName)
+        public async Task<ResultModel> AddRole([FromBody]List<string> userNameList, string roleName)
         {
             try
             {
                 // check existence of role
                 var role = await _roleManager.FindByNameAsync(roleName);
                 if (role == null)
-                    return new CmsResultModel
+                    return new ResultModel
                     {
                         IsSuccess = false,
                         Message = string.Format(CmsResource.RoleNotExist, roleName)
@@ -326,7 +326,7 @@ namespace TangramCMS.Controllers
                     isSuccess = false;
                     errorMsg.Append(IdentityResultErrors(result).Message);
                 }
-                return new CmsResultModel
+                return new ResultModel
                 {
                     IsSuccess = isSuccess,
                     Message = errorMsg.ToString()
@@ -341,7 +341,7 @@ namespace TangramCMS.Controllers
 
         [Route("RemoveRole/{roleName}")]
         [HttpPut]
-        public async Task<CmsResultModel> RemoveRole([FromBody]List<string> userNameList, string roleName)
+        public async Task<ResultModel> RemoveRole([FromBody]List<string> userNameList, string roleName)
         {
             try
             {
@@ -372,7 +372,7 @@ namespace TangramCMS.Controllers
                     isSuccess = false;
                     errorMsg.Append(IdentityResultErrors(result).Message);
                 }
-                return new CmsResultModel
+                return new ResultModel
                 {
                     IsSuccess = isSuccess,
                     Message = errorMsg.ToString()
@@ -388,13 +388,13 @@ namespace TangramCMS.Controllers
         [AllowAnonymous]
         [Route("Initialize")]
         [HttpPost]
-        public async Task<CmsResultModel> Initialize(RegisterBindingModel model)
+        public async Task<ResultModel> Initialize(RegisterBindingModel model)
         {
             try
             {
                 // validate initialization
                 if (_userManager.Users.Any() || _roleManager.Roles.Any())
-                    return new CmsResultModel
+                    return new ResultModel
                     {
                         IsSuccess = false,
                         Message = CmsResource.InvalidInitialization
@@ -408,7 +408,7 @@ namespace TangramCMS.Controllers
                 user.Roles.Add("Administrators");
                 result = await _userManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded) return IdentityResultErrors(result);
-                return new CmsResultModel
+                return new ResultModel
                 {
                     IsSuccess = true,
                     Message = string.Format(CmsResource.InitializeSucceeded)
@@ -424,13 +424,13 @@ namespace TangramCMS.Controllers
         [AllowAnonymous]
         [Route("RecoverAdministrators/{adminName}")]
         [HttpPost]
-        public async Task<CmsResultModel> RecoverAdministrators(string adminName)
+        public async Task<ResultModel> RecoverAdministrators(string adminName)
         {
             try
             {
                 // validate administrators recovery
                 if (_userManager.Users.Any(user => user.Roles.Contains("Administrators")))
-                    return new CmsResultModel
+                    return new ResultModel
                     {
                         IsSuccess = false,
                         Message = CmsResource.InvalidAdministratorsRecovery
@@ -444,7 +444,7 @@ namespace TangramCMS.Controllers
                 // check existence of specific administrator
                 var admin = await _userManager.FindByNameAsync(adminName);
                 if (admin == null)
-                    return new CmsResultModel
+                    return new ResultModel
                     {
                         IsSuccess = false,
                         Message = string.Format(CmsResource.UserNotExist, adminName)
@@ -453,7 +453,7 @@ namespace TangramCMS.Controllers
                 admin.Roles.Add("Administrators");
                 var result = await _userManager.UpdateAsync(admin);
                 if (!result.Succeeded) return IdentityResultErrors(result);
-                return new CmsResultModel
+                return new ResultModel
                 {
                     IsSuccess = true,
                     Message = CmsResource.RecoverAdministratorsSucceeded
@@ -466,28 +466,28 @@ namespace TangramCMS.Controllers
             }
         }
 
-        private CmsResultModel ModelStateErrors(ModelStateDictionary modelState)
+        private ResultModel ModelStateErrors(ModelStateDictionary modelState)
         {
             var errorMsg = new StringBuilder();
             foreach (var error in modelState.Values.SelectMany(s => s.Errors))
             {
                 errorMsg.AppendLine(error.ErrorMessage);
             }
-            return new CmsResultModel
+            return new ResultModel
             {
                 IsSuccess = false,
                 Message = errorMsg.ToString()
             };            
         }
 
-        private CmsResultModel IdentityResultErrors(IdentityResult result)
+        private ResultModel IdentityResultErrors(IdentityResult result)
         {
             var errorMsg = new StringBuilder();
             foreach (var error in result.Errors)
             {
                 errorMsg.AppendLine(error);
             }
-            return new CmsResultModel
+            return new ResultModel
             {
                 IsSuccess = false,
                 Message = errorMsg.ToString()

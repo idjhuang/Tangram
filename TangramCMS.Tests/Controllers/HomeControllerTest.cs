@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TangramCMS;
-using TangramCMS.Controllers;
+using TangramService;
+using TangramService.Controllers;
 
-namespace TangramCMS.Tests.Controllers
+namespace TangramService.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest

@@ -2,15 +2,15 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 
-namespace TangramCMS.Models
+namespace TangramService.Models
 {
-    public class CmsResultModel
+    public class ResultModel
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
     }
 
-    public class CmsDocumentBase
+    public class DocumentBase
     {
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         public string Id { get; set; }
@@ -20,14 +20,14 @@ namespace TangramCMS.Models
         public string ModifiedBy { get; set; }
     }
 
-    public class CmsDocument : CmsDocumentBase
+    public class Document : DocumentBase
     {
         public string ParentId { get; set; }
         [BsonExtraElements]
         public BsonDocument ExtraElements { get; set; }
     }
 
-    public class CmsCollection : CmsDocumentBase
+    public class Collection : DocumentBase
     {
         public string CollectionId { get; set; }
         public string DocumentType { get; set; }

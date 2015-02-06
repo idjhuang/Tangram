@@ -7,11 +7,11 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using TangramCMS.Infrastructure;
-using TangramCMS.Providers;
-using TangramCMS.Models;
+using TangramService.Models;
+using TangramService.Infrastructure;
+using TangramService.Providers;
 
-namespace TangramCMS
+namespace TangramService
 {
     public partial class Startup
     {

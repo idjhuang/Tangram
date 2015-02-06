@@ -8,9 +8,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using TangramCMS.Models;
+using TangramService.Models;
 
-namespace TangramCMS.Providers
+namespace TangramService.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {

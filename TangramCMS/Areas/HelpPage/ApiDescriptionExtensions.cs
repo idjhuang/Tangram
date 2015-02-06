@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace TangramCMS.Areas.HelpPage
+namespace TangramService.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

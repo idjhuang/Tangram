@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace TangramCMS.Infrastructure
+namespace TangramService.Infrastructure
 {
     public class LanguageMessageHandler : DelegatingHandler
     {
